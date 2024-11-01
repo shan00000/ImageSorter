@@ -8,15 +8,18 @@ def save_duplicates(file, root, filename):
     destination = os.path.join(duplicate_file_path,filename)
     count = 0
 
-    # while os.path.isfile(destination):
-    #     destination = destination + f"copy ({count})" ## need to work on replacing if they have the same name
-    #     count += 1
+    while os.path.isfile(destination):
+        path, extension = str(destination).split(".")
+        path = path + f"({count})"
+        destination = path + "." + extension
+        count += 1
+
 
     if check_dir(duplicate_file_path):
-        os.rename(file, destination)
+        os.replace(file, destination)
     else:
         os.makedirs(duplicate_file_path)
-        os.rename(file, destination)
+        os.replace(file, destination)
 
 
 ## somewhat done
